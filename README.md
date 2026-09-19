@@ -71,7 +71,7 @@ to an externally-registered domain (like one bought through GoDaddy) in a few st
    Vercel auto-detects Next.js — no build configuration needed.
 2. **Add environment variables** from `.env.example` under Project Settings → Environment Variables
    (at minimum, set `NEXT_PUBLIC_SITE_URL` to your real domain once you know it).
-3. **Add your domain**: Project Settings → Domains → add `standupsis.org` (and `www.standupsis.org`).
+3. **Add your domain**: Project Settings → Domains → add `standupsis.com` (and `www.standupsis.com`).
    Vercel will show you the DNS records it needs.
 4. **In GoDaddy**, go to your domain's DNS management and add the records Vercel showed you — typically:
    - An `A` record for the root domain (`@`) pointing to Vercel's IP, **or** GoDaddy's "forwarding" if

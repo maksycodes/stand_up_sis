@@ -6,9 +6,9 @@ export const siteConfig = {
   description:
     "Stand Up Sis CIC supports women building stronger businesses, careers and networks — through mentorship, workshops, funding guidance and community.",
   // Set NEXT_PUBLIC_SITE_URL in the environment once the GoDaddy domain is connected.
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.standupsis.org",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.standupsis.com",
   locale: "en_GB",
-  contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "hello@standupsis.org",
+  contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "hello@standupsis.com",
   social: {
     instagram: "",
     linkedin: "",
