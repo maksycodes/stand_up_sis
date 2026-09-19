@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------
+   Stand Up Sis design tokens
+   Source: brand mark "Concept 01 — Refined + Circle of Sisters"
+   Ink/Paper carry text and surfaces (AA-safe); Berry/Deep/Gold are
+   accents layered on top with contrast checked per use.
+   --------------------------------------------------------------- */
+:root {
+  --color-ink: #3b1230;
+  --color-ink-soft: #6b4159;
+  --color-paper: #fff6f8;
+  --color-paper-deep: #f4ede4;
+  --color-berry: #e8447f;
+  --color-pink: #f76ca3;
+  --color-deep: #b22a63;
+  --color-gold: #f6c25a;
+  --color-gold-deep: #7a4e10;
+
+  /* Circle of Sisters — eight dots, clockwise from top */
+  --color-dot-1: #f9a8c9;
+  --color-dot-2: #f76ca3;
+  --color-dot-3: #e8447f;
+  --color-dot-4: #c8366b;
+  --color-dot-5: #b22a63;
+  --color-dot-6: #8e2d8c;
+  --color-dot-7: #ff8a6b;
+  --color-dot-8: #f6c25a;
+
+  --gradient-berry: linear-gradient(135deg, var(--color-berry), var(--color-deep));
+
+  --font-display: var(--font-fraunces);
+  --font-body: var(--font-inter);
+}
+
+@theme inline {
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-paper: var(--color-paper);
+  --color-paper-deep: var(--color-paper-deep);
+  --color-berry: var(--color-berry);
+  --color-pink: var(--color-pink);
+  --color-deep: var(--color-deep);
+  --color-gold: var(--color-gold);
+  --color-gold-deep: var(--color-gold-deep);
+  --color-dot-1: var(--color-dot-1);
+  --color-dot-2: var(--color-dot-2);
+  --color-dot-3: var(--color-dot-3);
+  --color-dot-4: var(--color-dot-4);
+  --color-dot-5: var(--color-dot-5);
+  --color-dot-6: var(--color-dot-6);
+  --color-dot-7: var(--color-dot-7);
+  --color-dot-8: var(--color-dot-8);
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+
+  --animate-fade-up: fade-up 0.6s ease-out both;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+::selection {
+  background: var(--color-berry);
+  color: var(--color-paper);
+}
+
+/* Visible, on-brand focus ring for every interactive element */
+:focus-visible {
+  outline: 2px solid var(--color-deep);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 100;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
