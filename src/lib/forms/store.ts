@@ -9,8 +9,21 @@
  * environment, and replace the body of `saveSubmission` with an insert.
  * No API route call sites need to change.
  */
+/**
+ * Matches this table (run once in the Supabase SQL editor):
+ *
+ *   create table form_submissions (
+ *     id uuid primary key default gen_random_uuid(),
+ *     form_name text not null,
+ *     submitted_at timestamptz not null default now(),
+ *     data jsonb not null
+ *   );
+ *
+ * Each form's fields go into `data` as-is, so the table never needs a
+ * migration when a form gains or loses a field.
+ */
 export async function saveSubmission(formName: string, data: Record<string, unknown>) {
-  const record = { formName, submittedAt: new Date().toISOString(), ...data };
+  const submittedAt = new Date().toISOString();
 
   const supabaseUrl = process.env.SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -24,7 +37,7 @@ export async function saveSubmission(formName: string, data: Record<string, unkn
         "Content-Type": "application/json",
         Prefer: "return=minimal",
       },
-      body: JSON.stringify(record),
+      body: JSON.stringify({ form_name: formName, submitted_at: submittedAt, data }),
     });
     if (!res.ok) {
       console.error("[forms] Supabase insert failed", await res.text());
@@ -32,5 +45,5 @@ export async function saveSubmission(formName: string, data: Record<string, unkn
     return;
   }
 
-  console.log("[forms] submission", JSON.stringify(record));
+  console.log("[forms] submission", JSON.stringify({ formName, submittedAt, ...data }));
 }
