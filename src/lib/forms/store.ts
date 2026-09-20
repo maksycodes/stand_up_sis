@@ -4,13 +4,9 @@
  * Today: logs to the server console (visible in Vercel function logs),
  * so nothing is silently lost during early launch.
  *
- * Next step: point this at Supabase (or any Postgres) — create a table
- * per form, add SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY to the
- * environment, and replace the body of `saveSubmission` with an insert.
- * No API route call sites need to change.
- */
-/**
- * Matches this table (run once in the Supabase SQL editor):
+ * Next step: point this at Supabase — set SUPABASE_URL and
+ * SUPABASE_SERVICE_ROLE_KEY in the environment, and run this once in the
+ * Supabase SQL editor:
  *
  *   create table form_submissions (
  *     id uuid primary key default gen_random_uuid(),
@@ -18,6 +14,14 @@
  *     submitted_at timestamptz not null default now(),
  *     data jsonb not null
  *   );
+ *
+ *   alter table form_submissions enable row level security;
+ *
+ * RLS is enabled with no policies on purpose: this code only ever writes
+ * using the service_role key (server-side, in Vercel functions), which
+ * bypasses RLS by design — so inserts keep working, while the anon/
+ * authenticated keys (the ones a browser could ever hold) get denied by
+ * default instead of being able to read or write everyone's submissions.
  *
  * Each form's fields go into `data` as-is, so the table never needs a
  * migration when a form gains or loses a field.
