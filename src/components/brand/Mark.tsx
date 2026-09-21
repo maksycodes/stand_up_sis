@@ -1,6 +1,4 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
+import { useId } from "react";
 
 const DOT_COLORS = [
   "var(--color-dot-1)",
@@ -23,34 +21,21 @@ function dotPosition(index: number, cx: number, cy: number, r: number) {
 
 type MarkProps = {
   className?: string;
-  /** "brand" = coloured dots on paper/dark, "mono" = single colour (for favicons, watermarks) */
+  /** "brand" = gradient monogram on paper/dark, "mono" = single colour (for favicons, watermarks) */
   tone?: "brand" | "mono" | "reversed";
   title?: string;
 };
 
 /**
- * The "Circle of Sisters" monogram: a lowercase, underlined "s" running
- * into bold "US", ringed by eight equal dots. Pure SVG text (no
- * foreignObject — HTML-in-SVG scales unreliably across browsers at icon
- * sizes) so it stays crisp from a 16px favicon to a full-bleed mark. The
- * underline is measured off the actual rendered "s" glyph via getBBox,
- * so it sits exactly under the letter regardless of font metrics.
+ * The "Circle of Sisters" monogram: bold rounded "SUS", berry-to-deep
+ * gradient fill with a soft drop shadow, ringed by eight equal dots.
  */
 export function Mark({ className, tone = "brand", title = "Stand Up Sis" }: MarkProps) {
+  const gradientId = useId();
   const cx = 60;
   const cy = 60;
   const r = 46;
-  const sRef = useRef<SVGTSpanElement>(null);
-  const [underline, setUnderline] = useState<{ x1: number; x2: number; y: number } | null>(null);
-
-  useEffect(() => {
-    if (!sRef.current) return;
-    const box = sRef.current.getBBox();
-    setUnderline({ x1: box.x, x2: box.x + box.width, y: box.y + box.height + 1 });
-  }, []);
-
-  const monogramColor =
-    tone === "reversed" ? "var(--color-pink)" : tone === "mono" ? "currentColor" : "var(--color-berry)";
+  const monogramFill = tone === "mono" ? "currentColor" : `url(#${gradientId})`;
   const dotFill = (i: number) => (tone === "mono" ? "currentColor" : DOT_COLORS[i]);
 
   return (
@@ -61,29 +46,29 @@ export function Mark({ className, tone = "brand", title = "Stand Up Sis" }: Mark
       aria-label={title}
       xmlns="http://www.w3.org/2000/svg"
     >
+      <defs>
+        <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="var(--color-berry)" />
+          <stop offset="100%" stopColor="var(--color-deep)" />
+        </linearGradient>
+      </defs>
       {Array.from({ length: 8 }).map((_, i) => {
         const { x, y } = dotPosition(i, cx, cy, r);
         return <circle key={i} cx={x} cy={y} r={5} fill={dotFill(i)} opacity={tone === "mono" ? 0.85 : 1} />;
       })}
-      <text x={cx} y={70} textAnchor="middle" fontFamily="var(--font-display), serif" fill={monogramColor}>
-        <tspan ref={sRef} fontStyle="italic" fontWeight={500} fontSize={24}>
-          s
-        </tspan>
-        <tspan fontWeight={800} fontSize={32} dx={2}>
-          US
-        </tspan>
+      <text
+        x={cx}
+        y={70}
+        textAnchor="middle"
+        fontFamily="var(--font-logo), sans-serif"
+        fontWeight={800}
+        fontSize={32}
+        letterSpacing={0.5}
+        fill={monogramFill}
+        style={{ filter: "drop-shadow(0 2px 1.5px rgba(90, 18, 58, 0.35))" }}
+      >
+        SUS
       </text>
-      {underline && (
-        <line
-          x1={underline.x1}
-          x2={underline.x2}
-          y1={underline.y}
-          y2={underline.y}
-          stroke={monogramColor}
-          strokeWidth={2}
-          strokeLinecap="round"
-        />
-      )}
     </svg>
   );
 }

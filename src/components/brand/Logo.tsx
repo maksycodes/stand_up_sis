@@ -8,21 +8,28 @@ type LogoProps = {
   href?: string | null;
 };
 
+const dropShadow = "drop-shadow(0 2px 1.5px rgba(90, 18, 58, 0.3))";
+
 function Wordmark({ tone, size }: { tone: "brand" | "reversed"; size: "md" | "lg" }) {
   const inkColor = tone === "reversed" ? "text-paper" : "text-ink";
-  const accentColor = tone === "reversed" ? "text-pink" : "text-berry";
   const suffixColor = tone === "reversed" ? "text-paper/70" : "text-ink-soft";
   const textSize = size === "lg" ? "text-2xl sm:text-3xl" : "text-lg sm:text-xl";
   return (
-    <span className={`font-display font-bold ${textSize} leading-[1.05] tracking-tight`}>
-      <span className={`block ${inkColor}`}>Stand Up</span>
-      <span className={`block ${accentColor} italic`}>
-        Sis
+    <span className={`font-logo font-extrabold ${textSize} leading-[1.05] tracking-tight`}>
+      <span className={`block ${inkColor}`} style={{ filter: dropShadow }}>
+        Stand Up
+      </span>
+      <span className="flex items-center gap-1.5">
         <span
-          className={`ml-1 align-middle text-[0.4em] font-semibold not-italic uppercase tracking-[0.15em] ${suffixColor}`}
+          className="bg-clip-text text-transparent"
+          style={{
+            backgroundImage: "linear-gradient(135deg, var(--color-berry), var(--color-deep))",
+            filter: dropShadow,
+          }}
         >
-          C.I.C
+          Sis
         </span>
+        <span className={`text-[0.55em] font-semibold uppercase tracking-[0.15em] ${suffixColor}`}>C.I.C</span>
       </span>
     </span>
   );
