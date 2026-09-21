@@ -8,5 +8,10 @@
   <circle cx="27.5" cy="92.5" r="5.5" fill="#8E2D8C"/>
   <circle cx="14" cy="60" r="5.5" fill="#FF8A6B"/>
   <circle cx="27.5" cy="27.5" r="5.5" fill="#F6C25A"/>
-  <text x="60" y="60" text-anchor="middle" dominant-baseline="central" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="30" letter-spacing="1" fill="#F76CA3">SUS</text>
+  <foreignObject x="14" y="40" width="92" height="40">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;align-items:baseline;justify-content:center;height:100%;font-family:Georgia,'Times New Roman',serif;color:#F76CA3;">
+      <span style="font-style:italic;font-weight:500;font-size:22px;line-height:1;border-bottom:2px solid currentColor;padding-bottom:1px;">s</span>
+      <span style="font-weight:800;font-size:30px;line-height:1;">US</span>
+    </div>
+  </foreignObject>
 </svg>

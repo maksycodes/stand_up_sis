@@ -12,7 +12,7 @@ export function Footer() {
       <Container className="py-16">
         <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr_1fr]">
           <div className="max-w-sm">
-            <Logo variant="horizontal" tone="reversed" showTagline href={null} />
+            <Logo variant="horizontal" tone="reversed" href={null} />
             <p className="mt-5 text-sm leading-relaxed text-paper/70">{siteConfig.description}</p>
             <p className="mt-5 text-xs uppercase tracking-[0.2em] text-paper/65">
               {siteConfig.legalName} · Community Interest Company

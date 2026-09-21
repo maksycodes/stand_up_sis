@@ -25,14 +25,16 @@ type MarkProps = {
 };
 
 /**
- * The "Circle of Sisters" monogram: SUS ringed by eight equal dots.
- * Pure SVG so it stays crisp from a 16px favicon to a full-bleed hero mark.
+ * The "Circle of Sisters" monogram: a lowercase, underlined "s" running
+ * into bold "US", ringed by eight equal dots. Single SVG (text rendered
+ * via foreignObject so the underline is a real CSS border, not guessed
+ * glyph metrics) so it stays crisp from a 16px favicon to a full-bleed mark.
  */
 export function Mark({ className, tone = "brand", title = "Stand Up Sis" }: MarkProps) {
   const cx = 60;
   const cy = 60;
   const r = 46;
-  const monogramFill =
+  const monogramColor =
     tone === "reversed" ? "var(--color-pink)" : tone === "mono" ? "currentColor" : "var(--color-berry)";
   const dotFill = (i: number) => (tone === "mono" ? "currentColor" : DOT_COLORS[i]);
 
@@ -48,19 +50,32 @@ export function Mark({ className, tone = "brand", title = "Stand Up Sis" }: Mark
         const { x, y } = dotPosition(i, cx, cy, r);
         return <circle key={i} cx={x} cy={y} r={5} fill={dotFill(i)} opacity={tone === "mono" ? 0.85 : 1} />;
       })}
-      <text
-        x={cx}
-        y={cy}
-        textAnchor="middle"
-        dominantBaseline="central"
-        fontFamily="var(--font-display), serif"
-        fontWeight={700}
-        fontSize={30}
-        letterSpacing={1}
-        fill={monogramFill}
-      >
-        SUS
-      </text>
+      <foreignObject x="14" y="40" width="92" height="40">
+        <div
+          style={{
+            display: "flex",
+            alignItems: "baseline",
+            justifyContent: "center",
+            height: "100%",
+            fontFamily: "var(--font-display), serif",
+            color: monogramColor,
+          }}
+        >
+          <span
+            style={{
+              fontStyle: "italic",
+              fontWeight: 500,
+              fontSize: "22px",
+              lineHeight: 1,
+              borderBottom: "2px solid currentColor",
+              paddingBottom: "1px",
+            }}
+          >
+            s
+          </span>
+          <span style={{ fontWeight: 800, fontSize: "30px", lineHeight: 1 }}>US</span>
+        </div>
+      </foreignObject>
     </svg>
   );
 }

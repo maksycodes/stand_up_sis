@@ -77,12 +77,25 @@ export default function OgImage() {
               height: box,
               alignItems: "center",
               justifyContent: "center",
-              fontSize: 44,
-              fontWeight: 700,
               color: "#F76CA3",
             }}
           >
-            SUS
+            <div style={{ display: "flex", alignItems: "baseline" }}>
+              <div
+                style={{
+                  display: "flex",
+                  fontStyle: "italic",
+                  fontWeight: 500,
+                  fontSize: 30,
+                  lineHeight: 1,
+                  borderBottom: "3px solid #F76CA3",
+                  paddingBottom: 2,
+                }}
+              >
+                s
+              </div>
+              <div style={{ display: "flex", fontWeight: 800, fontSize: 44, lineHeight: 1 }}>US</div>
+            </div>
           </div>
         </div>
       </div>
