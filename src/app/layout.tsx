@@ -1,31 +1,22 @@
 import type { Metadata } from "next";
-import { Baloo_2, Fraunces, Inter } from "next/font/google";
+import { Baloo_2, Inter } from "next/font/google";
 import Script from "next/script";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  axes: ["opsz", "SOFT", "WONK"],
-});
-
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
 });
 
-// Bold rounded display face used only for the logo lockup (wordmark + "SUS"
-// monogram) to match the brand's final mark exactly — not the site-wide
-// heading font, which stays Fraunces pending a decision on whether to
-// extend this rounded style to headlines too.
+// Bold rounded display face used for the logo lockup and every headline
+// site-wide, matching the brand's final mark.
 const baloo = Baloo_2({
   variable: "--font-baloo",
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
+  weight: ["500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -79,10 +70,7 @@ const organizationJsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en-GB"
-      className={`${fraunces.variable} ${inter.variable} ${baloo.variable} h-full antialiased`}
-    >
+    <html lang="en-GB" className={`${inter.variable} ${baloo.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-paper text-ink">
         <Script
           id="organization-jsonld"

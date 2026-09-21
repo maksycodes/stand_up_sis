@@ -60,7 +60,7 @@ export function Mark({ className, tone = "brand", title = "Stand Up Sis" }: Mark
         x={cx}
         y={70}
         textAnchor="middle"
-        fontFamily="var(--font-logo), sans-serif"
+        fontFamily="var(--font-display), sans-serif"
         fontWeight={800}
         fontSize={32}
         letterSpacing={0.5}

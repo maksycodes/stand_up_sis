@@ -15,7 +15,7 @@ function Wordmark({ tone, size }: { tone: "brand" | "reversed"; size: "md" | "lg
   const suffixColor = tone === "reversed" ? "text-paper/70" : "text-ink-soft";
   const textSize = size === "lg" ? "text-2xl sm:text-3xl" : "text-lg sm:text-xl";
   return (
-    <span className={`font-logo font-extrabold ${textSize} leading-[1.05] tracking-tight`}>
+    <span className={`font-display font-extrabold ${textSize} leading-[1.05] tracking-tight`}>
       <span className={`block ${inkColor}`} style={{ filter: dropShadow }}>
         Stand Up
       </span>

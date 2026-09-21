@@ -29,9 +29,8 @@
 
   --gradient-berry: linear-gradient(135deg, var(--color-berry), var(--color-deep));
 
-  --font-display: var(--font-fraunces);
+  --font-display: var(--font-baloo);
   --font-body: var(--font-inter);
-  --font-logo: var(--font-baloo);
 }
 
 @theme inline {
@@ -55,7 +54,6 @@
 
   --font-display: var(--font-display);
   --font-body: var(--font-body);
-  --font-logo: var(--font-logo);
 
   --animate-fade-up: fade-up 0.6s ease-out both;
 
