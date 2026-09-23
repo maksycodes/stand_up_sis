@@ -61,14 +61,14 @@ export default function ImpactPage() {
             The metrics we&apos;re building our data collection around from day one.
           </p>
         </div>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-10 divide-y divide-ink/10 rounded-2xl border border-ink/8 bg-paper">
           {metrics.map((metric) => (
-            <Card key={metric} className="flex items-center gap-3">
+            <li key={metric} className="flex items-center gap-3 px-6 py-4">
               <span className="h-2 w-2 shrink-0 rounded-full bg-berry" aria-hidden="true" />
               <span className="text-sm font-semibold text-ink">{metric}</span>
-            </Card>
+            </li>
           ))}
-        </div>
+        </ul>
       </Section>
 
       <Section>

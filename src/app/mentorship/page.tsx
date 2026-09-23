@@ -28,12 +28,12 @@ export default function MentorshipPage() {
             <div>
               <h2 className="font-display text-2xl font-semibold text-ink">Find support</h2>
               <p className="mt-3 text-ink-soft">
-                Register your interest and tell us what kind of guidance you&apos;re looking for. We&apos;re matching mentors
-                to mentees as our mentor network grows.
+                Tell us what kind of guidance you&apos;re looking for. We&apos;re matching mentors to mentees as our mentor
+                network grows.
               </p>
             </div>
             <Button href="/community" size="lg">
-              Register your interest
+              Join the Community
             </Button>
           </Card>
           <Card className="flex flex-col justify-between gap-6">
@@ -44,11 +44,9 @@ export default function MentorshipPage() {
                 availability below.
               </p>
             </div>
-            <a href="#become-a-mentor">
-              <Button size="lg" variant="secondary">
-                Apply to mentor
-              </Button>
-            </a>
+            <Button href="#become-a-mentor" size="lg" variant="secondary">
+              Apply to mentor
+            </Button>
           </Card>
         </div>
       </Section>
