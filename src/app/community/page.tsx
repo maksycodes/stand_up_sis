@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { Card } from "@/components/ui/Card";
+import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { CommunityForm } from "@/components/forms/CommunityForm";
 import { pageMetadata } from "@/lib/page-metadata";
 
@@ -34,15 +35,18 @@ export default function CommunityPage() {
         eyebrow="Community"
         title="Start here. We're building this together."
         description="Stand Up Sis is a community before it's anything else. Join now and you shape what comes next — mentorship, workshops, funding guidance and the network around it."
+        variant="blob"
       />
 
       <Section>
         <div className="grid gap-5 sm:grid-cols-3">
-          {whatYouGet.map((item) => (
-            <Card key={item.title}>
-              <h3 className="font-display text-lg font-semibold text-ink">{item.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-soft">{item.description}</p>
-            </Card>
+          {whatYouGet.map((item, i) => (
+            <RevealOnScroll key={item.title} delay={i * 60}>
+              <Card>
+                <h3 className="font-display text-lg font-semibold text-ink">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink-soft">{item.description}</p>
+              </Card>
+            </RevealOnScroll>
           ))}
         </div>
       </Section>

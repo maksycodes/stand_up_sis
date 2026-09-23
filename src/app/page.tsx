@@ -8,6 +8,7 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { NewsletterForm } from "@/components/forms/NewsletterForm";
 import { Mark } from "@/components/brand/Mark";
 import { EventCard } from "@/components/events/EventCard";
+import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { programmeCategories, programmes } from "@/content/programmes";
 import { events } from "@/content/events";
 
@@ -143,11 +144,13 @@ export default function Home() {
           </p>
         </div>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {audiences.map((a) => (
-            <Card key={a.title}>
-              <h3 className="font-display text-lg font-semibold text-ink">{a.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-soft">{a.description}</p>
-            </Card>
+          {audiences.map((a, i) => (
+            <RevealOnScroll key={a.title} delay={i * 50}>
+              <Card>
+                <h3 className="font-display text-lg font-semibold text-ink">{a.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink-soft">{a.description}</p>
+              </Card>
+            </RevealOnScroll>
           ))}
         </div>
       </Section>
@@ -167,12 +170,14 @@ export default function Home() {
           </Link>
         </div>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {programmeCategories.map((category) => (
-            <Card key={category} className="flex flex-col gap-3">
-              <h3 className="sr-only">{category}</h3>
-              <Badge>{category}</Badge>
-              <p className="text-sm leading-relaxed text-ink-soft">{offerDescriptions[category]}</p>
-            </Card>
+          {programmeCategories.map((category, i) => (
+            <RevealOnScroll key={category} delay={i * 50}>
+              <Card className="flex h-full flex-col gap-3">
+                <h3 className="sr-only">{category}</h3>
+                <Badge>{category}</Badge>
+                <p className="text-sm leading-relaxed text-ink-soft">{offerDescriptions[category]}</p>
+              </Card>
+            </RevealOnScroll>
           ))}
         </div>
       </Section>
@@ -252,16 +257,18 @@ export default function Home() {
           <h2 className="font-display text-3xl font-semibold sm:text-4xl">Ways to get involved</h2>
         </div>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {involvementPaths.map((path) => (
-            <Link key={path.title} href={path.href} className="group block rounded-2xl focus-visible:outline-2 focus-visible:outline-deep">
-              <Card interactive className="flex h-full flex-col justify-between gap-6">
-                <div>
-                  <h3 className="font-display text-lg font-semibold text-ink">{path.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-soft">{path.description}</p>
-                </div>
-                <span className="text-sm font-semibold text-deep group-hover:text-ink">{path.cta} →</span>
-              </Card>
-            </Link>
+          {involvementPaths.map((path, i) => (
+            <RevealOnScroll key={path.title} delay={i * 50}>
+              <Link href={path.href} className="group block rounded-2xl focus-visible:outline-2 focus-visible:outline-deep">
+                <Card interactive className="flex h-full flex-col justify-between gap-6">
+                  <div>
+                    <h3 className="font-display text-lg font-semibold text-ink">{path.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-ink-soft">{path.description}</p>
+                  </div>
+                  <span className="text-sm font-semibold text-deep group-hover:text-ink">{path.cta} →</span>
+                </Card>
+              </Link>
+            </RevealOnScroll>
           ))}
         </div>
       </Section>

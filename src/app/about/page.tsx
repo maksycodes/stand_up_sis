@@ -4,6 +4,7 @@ import { Section } from "@/components/ui/Section";
 import { Card } from "@/components/ui/Card";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Button } from "@/components/ui/Button";
+import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { pageMetadata } from "@/lib/page-metadata";
 
 export const metadata: Metadata = pageMetadata({
@@ -39,6 +40,7 @@ export default function AboutPage() {
         eyebrow="About Stand Up Sis"
         title="Building the access ambition deserves."
         description="Stand Up Sis CIC exists to support women in building stronger businesses, careers, confidence, networks and economic independence."
+        variant="mesh"
       />
 
       <Section>
@@ -117,11 +119,13 @@ export default function AboutPage() {
           <h2 className="font-display text-2xl font-semibold sm:text-3xl">Our values</h2>
         </div>
         <div className="mt-10 grid gap-5 sm:grid-cols-2">
-          {values.map((value) => (
-            <Card key={value.title}>
-              <h3 className="font-display text-lg font-semibold text-ink">{value.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-soft">{value.description}</p>
-            </Card>
+          {values.map((value, i) => (
+            <RevealOnScroll key={value.title} delay={i * 60}>
+              <Card>
+                <h3 className="font-display text-lg font-semibold text-ink">{value.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink-soft">{value.description}</p>
+              </Card>
+            </RevealOnScroll>
           ))}
         </div>
       </Section>

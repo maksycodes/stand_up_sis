@@ -21,6 +21,7 @@ export default function InsightsPage() {
         eyebrow="Insights & Resources"
         title="Practical knowledge, as we build it."
         description="Business guides, funding information, founder stories and career resources — a resource hub that grows alongside the community."
+        variant="constellation"
       />
 
       <Section>

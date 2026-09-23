@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { Card, Badge } from "@/components/ui/Card";
+import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { PartnershipForm } from "@/components/forms/PartnershipForm";
 import { pageMetadata } from "@/lib/page-metadata";
 
@@ -50,16 +51,30 @@ export default function PartnershipsPage() {
         eyebrow="Partnerships"
         title="A serious organisation to build with."
         description="Stand Up Sis is built to work alongside councils, funders, corporates and community organisations who are serious about women's economic development. Here's where we can collaborate."
+        variant="blob"
       />
 
       <Section>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {collaborationAreas.map((area) => (
-            <Card key={area.title}>
-              <Badge tone="gold">{area.title}</Badge>
-              <p className="mt-3 text-sm leading-relaxed text-ink-soft">{area.description}</p>
-            </Card>
+          {collaborationAreas.map((area, i) => (
+            <RevealOnScroll key={area.title} delay={i * 45}>
+              <Card className="h-full">
+                <Badge tone="gold">{area.title}</Badge>
+                <p className="mt-3 text-sm leading-relaxed text-ink-soft">{area.description}</p>
+              </Card>
+            </RevealOnScroll>
           ))}
+        </div>
+      </Section>
+
+      <Section tone="ink">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="font-display text-2xl font-semibold italic leading-snug text-pink sm:text-3xl">
+            &ldquo;Councils and funders don&apos;t need another pitch. They need a partner who delivers.&rdquo;
+          </p>
+          <p className="mt-4 text-sm text-paper/70">
+            That&apos;s the standard we&apos;re building Stand Up Sis to meet, from our first partnership onward.
+          </p>
         </div>
       </Section>
 

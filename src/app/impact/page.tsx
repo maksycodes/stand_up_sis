@@ -3,6 +3,7 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { Card } from "@/components/ui/Card";
 import { DotRing } from "@/components/ui/DotRing";
+import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { Button } from "@/components/ui/Button";
 import { pageMetadata } from "@/lib/page-metadata";
 
@@ -30,6 +31,7 @@ export default function ImpactPage() {
         eyebrow="Impact"
         title="Our impact journey is beginning."
         description="We haven't run our first programme yet, so we won't pretend to have results. Here's what we're building to measure, and why it matters to funders, partners and the women we serve."
+        variant="mesh"
       />
 
       <Section>
@@ -61,14 +63,16 @@ export default function ImpactPage() {
             The metrics we&apos;re building our data collection around from day one.
           </p>
         </div>
-        <ul className="mt-10 divide-y divide-ink/10 rounded-2xl border border-ink/8 bg-paper">
-          {metrics.map((metric) => (
-            <li key={metric} className="flex items-center gap-3 px-6 py-4">
-              <span className="h-2 w-2 shrink-0 rounded-full bg-berry" aria-hidden="true" />
-              <span className="text-sm font-semibold text-ink">{metric}</span>
-            </li>
-          ))}
-        </ul>
+        <RevealOnScroll>
+          <ul className="mt-10 divide-y divide-ink/10 rounded-2xl border border-ink/8 bg-paper">
+            {metrics.map((metric) => (
+              <li key={metric} className="flex items-center gap-3 px-6 py-4">
+                <span className="h-2 w-2 shrink-0 rounded-full bg-berry" aria-hidden="true" />
+                <span className="text-sm font-semibold text-ink">{metric}</span>
+              </li>
+            ))}
+          </ul>
+        </RevealOnScroll>
       </Section>
 
       <Section>

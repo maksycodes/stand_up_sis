@@ -4,6 +4,7 @@ import { Section } from "@/components/ui/Section";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Button } from "@/components/ui/Button";
 import { EventCard } from "@/components/events/EventCard";
+import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { pageMetadata } from "@/lib/page-metadata";
 import { events } from "@/content/events";
 
@@ -21,13 +22,16 @@ export default function EventsPage() {
         eyebrow="Events"
         title="Workshops, networking and community — in person and online."
         description="Our events calendar is just getting started. Join the community to hear the moment something is confirmed."
+        variant="mesh"
       />
 
       <Section>
         {events.length > 0 ? (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {events.map((event) => (
-              <EventCard key={event.slug} event={event} />
+            {events.map((event, i) => (
+              <RevealOnScroll key={event.slug} delay={i * 50}>
+                <EventCard event={event} />
+              </RevealOnScroll>
             ))}
           </div>
         ) : (
