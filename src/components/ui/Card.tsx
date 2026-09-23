@@ -14,8 +14,8 @@ type CardProps = {
 export function Card({ children, className = "", interactive = false }: CardProps) {
   return (
     <div
-      className={`rounded-2xl border border-ink/8 bg-paper p-6 shadow-[0_1px_2px_rgba(59,18,48,0.04)] transition-shadow sm:p-8 ${
-        interactive ? "hover:shadow-[0_8px_24px_rgba(59,18,48,0.08)]" : ""
+      className={`rounded-2xl border border-ink/8 bg-paper p-6 shadow-[0_1px_2px_rgba(59,18,48,0.04)] transition-[box-shadow,transform] sm:p-8 ${
+        interactive ? "hover:shadow-[0_8px_24px_rgba(59,18,48,0.08)] active:scale-[0.99]" : ""
       } ${className}`}
     >
       {children}

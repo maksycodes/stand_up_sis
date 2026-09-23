@@ -84,13 +84,13 @@ export function FormNotice({ status }: { status: "success" | "error" | null }) {
   if (!status) return null;
   if (status === "success") {
     return (
-      <p className="rounded-xl bg-berry/10 px-4 py-3 text-sm font-medium text-deep" role="status">
+      <p className="animate-fade-in rounded-xl bg-berry/10 px-4 py-3 text-sm font-medium text-deep" role="status">
         Thank you — we&apos;ve received your submission and will be in touch.
       </p>
     );
   }
   return (
-    <p className="rounded-xl bg-deep/10 px-4 py-3 text-sm font-medium text-deep" role="alert">
+    <p className="animate-fade-in rounded-xl bg-deep/10 px-4 py-3 text-sm font-medium text-deep" role="alert">
       Something went wrong sending your form. Please try again, or email us directly.
     </p>
   );

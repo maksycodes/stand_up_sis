@@ -10,9 +10,18 @@ import { primaryNav, moreNav } from "@/lib/site-config";
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
   const pathname = usePathname();
   const close = () => setOpen(false);
-  const moreRef = useRef<HTMLDetailsElement>(null);
+  const moreRef = useRef<HTMLDivElement>(null);
+
+  // Reset the "More" dropdown when the route changes, adjusted during
+  // render (not an effect) so it doesn't trigger a second render pass.
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
+    if (moreOpen) setMoreOpen(false);
+  }
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -22,13 +31,9 @@ export function Header() {
   }, [open]);
 
   useEffect(() => {
-    if (moreRef.current) moreRef.current.open = false;
-  }, [pathname]);
-
-  useEffect(() => {
     function handleClick(event: MouseEvent) {
       if (moreRef.current && !moreRef.current.contains(event.target as Node)) {
-        moreRef.current.open = false;
+        setMoreOpen(false);
       }
     }
     document.addEventListener("click", handleClick);
@@ -62,16 +67,20 @@ export function Header() {
                 );
               })}
 
-              <details ref={moreRef} className="group relative">
-                <summary
-                  className={`flex cursor-pointer list-none items-center gap-1 whitespace-nowrap text-sm font-medium transition-colors hover:text-deep [&::-webkit-details-marker]:hidden ${
+              <div ref={moreRef} className="relative">
+                <button
+                  type="button"
+                  onClick={() => setMoreOpen((v) => !v)}
+                  aria-expanded={moreOpen}
+                  aria-haspopup="true"
+                  className={`flex items-center gap-1 whitespace-nowrap text-sm font-medium transition-colors hover:text-deep ${
                     moreActive ? "text-deep" : "text-ink"
                   }`}
                 >
                   More
                   <svg
                     viewBox="0 0 24 24"
-                    className="h-3.5 w-3.5 transition-transform group-open:rotate-180"
+                    className={`h-3.5 w-3.5 transition-transform duration-150 ${moreOpen ? "rotate-180" : ""}`}
                     fill="none"
                     stroke="currentColor"
                     strokeWidth={2}
@@ -79,8 +88,12 @@ export function Header() {
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6" />
                   </svg>
-                </summary>
-                <div className="absolute left-0 top-full z-10 mt-2 w-48 rounded-xl border border-ink/10 bg-paper p-2 shadow-lg">
+                </button>
+                <div
+                  className={`absolute left-0 top-full z-10 mt-2 w-48 origin-top rounded-xl border border-ink/10 bg-paper p-2 shadow-lg transition-[opacity,transform] duration-[180ms] ease-out ${
+                    moreOpen ? "opacity-100 scale-100" : "pointer-events-none -translate-y-1 scale-95 opacity-0"
+                  }`}
+                >
                   {moreNav.map((link) => {
                     const active = isActive(link.href);
                     return (
@@ -88,6 +101,7 @@ export function Header() {
                         key={link.href}
                         href={link.href}
                         aria-current={active ? "page" : undefined}
+                        onClick={() => setMoreOpen(false)}
                         className={`block rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-ink/5 ${
                           active ? "text-deep" : "text-ink"
                         }`}
@@ -97,7 +111,7 @@ export function Header() {
                     );
                   })}
                 </div>
-              </details>
+              </div>
             </nav>
 
             <div className="flex items-center gap-3">
@@ -126,11 +140,22 @@ export function Header() {
               strokeWidth={2}
               aria-hidden="true"
             >
-              {open ? (
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 6l12 12M18 6L6 18" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4 7h16M4 12h16M4 17h16" />
-              )}
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4 7h16M4 12h16M4 17h16"
+                className={`origin-center transition-[opacity,transform] duration-150 ease-out ${
+                  open ? "scale-90 opacity-0" : "scale-100 opacity-100"
+                }`}
+              />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 6l12 12M18 6L6 18"
+                className={`origin-center transition-[opacity,transform] duration-150 ease-out ${
+                  open ? "scale-100 opacity-100" : "scale-90 opacity-0"
+                }`}
+              />
             </svg>
           </button>
         </Container>

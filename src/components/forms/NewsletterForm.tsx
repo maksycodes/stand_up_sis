@@ -40,7 +40,7 @@ export function NewsletterForm({ tone = "dark" }: { tone?: Tone }) {
 
   if (status === "success") {
     return (
-      <p className={`mt-4 text-sm font-medium ${isLight ? "text-deep" : "text-pink"}`}>
+      <p className={`animate-fade-in mt-4 text-sm font-medium ${isLight ? "text-deep" : "text-pink"}`}>
         You&apos;re on the list — welcome, sis.
       </p>
     );
@@ -92,7 +92,7 @@ export function NewsletterForm({ tone = "dark" }: { tone?: Tone }) {
       </div>
 
       {status === "error" && (
-        <p className={`text-xs ${isLight ? "text-deep" : "text-pink"}`} role="alert">
+        <p className={`animate-fade-in text-xs ${isLight ? "text-deep" : "text-pink"}`} role="alert">
           Something went wrong — please try again in a moment.
         </p>
       )}
