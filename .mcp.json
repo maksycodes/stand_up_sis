@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "apify-playwright": {
+      "command": "npx",
+      "args": ["-y", "@apify/actors-mcp-server", "--actors", "jiri.spilka/playwright-mcp-server"],
+      "env": {
+        "APIFY_TOKEN": "${APIFY_TOKEN}"
+      }
+    }
+  }
+}
