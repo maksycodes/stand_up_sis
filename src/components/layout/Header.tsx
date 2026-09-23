@@ -1,16 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { Logo } from "@/components/brand/Logo";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
-import { primaryNav } from "@/lib/site-config";
+import { primaryNav, moreNav } from "@/lib/site-config";
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const close = () => setOpen(false);
+  const moreRef = useRef<HTMLDetailsElement>(null);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -18,6 +20,23 @@ export function Header() {
       document.body.style.overflow = "";
     };
   }, [open]);
+
+  useEffect(() => {
+    if (moreRef.current) moreRef.current.open = false;
+  }, [pathname]);
+
+  useEffect(() => {
+    function handleClick(event: MouseEvent) {
+      if (moreRef.current && !moreRef.current.contains(event.target as Node)) {
+        moreRef.current.open = false;
+      }
+    }
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
+  }, []);
+
+  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
+  const moreActive = moreNav.some((link) => isActive(link.href));
 
   return (
     <>
@@ -28,9 +47,9 @@ export function Header() {
           <div className="hidden min-w-0 items-center gap-6 xl:flex">
             <nav className="flex items-center gap-5" aria-label="Primary">
               {primaryNav.map((link) => {
-                const active = pathname === link.href || pathname.startsWith(`${link.href}/`);
+                const active = isActive(link.href);
                 return (
-                  <a
+                  <Link
                     key={link.href}
                     href={link.href}
                     aria-current={active ? "page" : undefined}
@@ -39,9 +58,46 @@ export function Header() {
                     }`}
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 );
               })}
+
+              <details ref={moreRef} className="group relative">
+                <summary
+                  className={`flex cursor-pointer list-none items-center gap-1 whitespace-nowrap text-sm font-medium transition-colors hover:text-deep [&::-webkit-details-marker]:hidden ${
+                    moreActive ? "text-deep" : "text-ink"
+                  }`}
+                >
+                  More
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-3.5 w-3.5 transition-transform group-open:rotate-180"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    aria-hidden="true"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 9l6 6 6-6" />
+                  </svg>
+                </summary>
+                <div className="absolute left-0 top-full z-10 mt-2 w-48 rounded-xl border border-ink/10 bg-paper p-2 shadow-lg">
+                  {moreNav.map((link) => {
+                    const active = isActive(link.href);
+                    return (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        aria-current={active ? "page" : undefined}
+                        className={`block rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-ink/5 ${
+                          active ? "text-deep" : "text-ink"
+                        }`}
+                      >
+                        {link.label}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </details>
             </nav>
 
             <div className="flex items-center gap-3">
@@ -56,7 +112,7 @@ export function Header() {
 
           <button
             type="button"
-            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-ink xl:hidden"
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-ink xl:hidden"
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -91,14 +147,25 @@ export function Header() {
       >
         <Container className="flex flex-col gap-1 py-6">
           {primaryNav.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               onClick={close}
               className="rounded-lg px-3 py-3 text-lg font-medium text-ink hover:bg-ink/5"
             >
               {link.label}
-            </a>
+            </Link>
+          ))}
+          <p className="mt-3 px-3 text-xs font-semibold uppercase tracking-[0.2em] text-ink-soft">More</p>
+          {moreNav.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={close}
+              className="rounded-lg px-3 py-3 text-lg font-medium text-ink hover:bg-ink/5"
+            >
+              {link.label}
+            </Link>
           ))}
           <div className="mt-4 flex flex-col gap-3">
             <Button href="/partnerships" variant="secondary" size="lg" className="w-full" onClick={close}>

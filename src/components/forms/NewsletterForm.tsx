@@ -66,15 +66,13 @@ export function NewsletterForm({ tone = "dark" }: { tone?: Tone }) {
           className={`min-w-0 flex-1 rounded-full border px-4 py-2.5 text-sm focus-visible:outline-2 ${
             isLight
               ? "border-ink/15 bg-paper text-ink placeholder:text-ink-soft/60 focus-visible:outline-deep"
-              : "border-paper/20 bg-paper/5 text-paper placeholder:text-paper/40 focus-visible:outline-pink"
+              : "border-paper/30 bg-paper/10 text-paper placeholder:text-paper/55 focus-visible:outline-pink"
           }`}
         />
         <button
           type="submit"
           disabled={status === "loading"}
-          className={`rounded-full px-5 py-2.5 text-sm font-semibold transition-colors disabled:opacity-60 ${
-            isLight ? "bg-deep text-paper hover:bg-ink" : "bg-berry text-paper hover:bg-pink hover:text-ink"
-          }`}
+          className="rounded-full bg-deep px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:bg-ink disabled:opacity-60"
         >
           {status === "loading" ? "Joining…" : "Sign up"}
         </button>

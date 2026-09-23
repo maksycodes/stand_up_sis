@@ -32,6 +32,11 @@ export const primaryNav: NavLink[] = [
   { label: "Programmes", href: "/programmes" },
   { label: "Community", href: "/community" },
   { label: "Events", href: "/events" },
+];
+
+// Grouped behind "More" in the header so the primary decision point stays
+// under the ~4-item working-memory limit; every page is still one click away.
+export const moreNav: NavLink[] = [
   { label: "Mentorship", href: "/mentorship" },
   { label: "Partnerships", href: "/partnerships" },
   { label: "Impact", href: "/impact" },

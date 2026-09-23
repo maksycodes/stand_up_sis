@@ -7,6 +7,7 @@ import { DotRing } from "@/components/ui/DotRing";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { NewsletterForm } from "@/components/forms/NewsletterForm";
 import { Mark } from "@/components/brand/Mark";
+import { EventCard } from "@/components/events/EventCard";
 import { programmeCategories, programmes } from "@/content/programmes";
 import { events } from "@/content/events";
 
@@ -107,8 +108,8 @@ export default function Home() {
               </Button>
             </div>
           </div>
-          <div className="mx-auto hidden shrink-0 lg:block" aria-hidden="true">
-            <DotRing size={280} filled={8} />
+          <div className="mx-auto shrink-0" aria-hidden="true">
+            <DotRing size={280} filled={8} className="h-40 w-40 lg:h-[280px] lg:w-[280px]" />
           </div>
         </Container>
       </section>
@@ -161,13 +162,14 @@ export default function Home() {
               next.
             </p>
           </div>
-          <Link href="/programmes" className="text-sm font-semibold text-deep hover:text-ink">
+          <Link href="/programmes" className="-my-2 inline-block py-2 text-sm font-semibold text-deep hover:text-ink">
             View all programmes →
           </Link>
         </div>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {programmeCategories.map((category) => (
             <Card key={category} className="flex flex-col gap-3">
+              <h3 className="sr-only">{category}</h3>
               <Badge>{category}</Badge>
               <p className="text-sm leading-relaxed text-ink-soft">{offerDescriptions[category]}</p>
             </Card>
@@ -183,7 +185,26 @@ export default function Home() {
         </div>
         <div className="mt-10">
           {hasOpportunities ? (
-            <p className="text-ink-soft">Opportunities coming soon.</p>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {events.slice(0, 3).map((event) => (
+                <EventCard key={event.slug} event={event} />
+              ))}
+              {programmes.slice(0, Math.max(0, 3 - events.length)).map((programme) => (
+                <Card key={programme.slug} className="flex flex-col gap-3">
+                  <Badge>{programme.category}</Badge>
+                  <div>
+                    <h3 className="font-display text-lg font-semibold text-ink">{programme.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-ink-soft">{programme.summary}</p>
+                  </div>
+                  <Link
+                    href={`/programmes/${programme.slug}`}
+                    className="text-sm font-semibold text-deep hover:text-ink"
+                  >
+                    Learn more →
+                  </Link>
+                </Card>
+              ))}
+            </div>
           ) : (
             <EmptyState
               title="Our first opportunities are being shaped"
@@ -232,15 +253,15 @@ export default function Home() {
         </div>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {involvementPaths.map((path) => (
-            <Card key={path.title} className="flex flex-col justify-between gap-6">
-              <div>
-                <h3 className="font-display text-lg font-semibold text-ink">{path.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-soft">{path.description}</p>
-              </div>
-              <Link href={path.href} className="text-sm font-semibold text-deep hover:text-ink">
-                {path.cta} →
-              </Link>
-            </Card>
+            <Link key={path.title} href={path.href} className="group block rounded-2xl focus-visible:outline-2 focus-visible:outline-deep">
+              <Card interactive className="flex h-full flex-col justify-between gap-6">
+                <div>
+                  <h3 className="font-display text-lg font-semibold text-ink">{path.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink-soft">{path.description}</p>
+                </div>
+                <span className="text-sm font-semibold text-deep group-hover:text-ink">{path.cta} →</span>
+              </Card>
+            </Link>
           ))}
         </div>
       </Section>
@@ -265,16 +286,18 @@ export default function Home() {
               </Button>
             </div>
           </div>
-          <Card className="bg-paper-deep">
-            <h3 className="font-display text-lg font-semibold text-ink">Our impact journey is beginning</h3>
-            <p className="mt-3 text-sm leading-relaxed text-ink-soft">
-              We&apos;re building the systems to measure what matters — women supported, businesses started and
-              grown, funding accessed, mentors involved. Read our approach on the Impact page.
-            </p>
-            <Link href="/impact" className="mt-4 inline-block text-sm font-semibold text-deep hover:text-ink">
-              See our impact approach →
-            </Link>
-          </Card>
+          <Link href="/impact" className="group block rounded-2xl focus-visible:outline-2 focus-visible:outline-deep">
+            <Card interactive className="bg-paper-deep">
+              <h3 className="font-display text-lg font-semibold text-ink">Our impact journey is beginning</h3>
+              <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+                We&apos;re building the systems to measure what matters — women supported, businesses started and
+                grown, funding accessed, mentors involved. Read our approach on the Impact page.
+              </p>
+              <span className="mt-4 inline-block text-sm font-semibold text-deep group-hover:text-ink">
+                See our impact approach →
+              </span>
+            </Card>
+          </Link>
         </div>
       </Section>
 

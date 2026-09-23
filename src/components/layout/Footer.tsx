@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Logo } from "@/components/brand/Logo";
 import { Container } from "@/components/ui/Container";
 import { DotDivider } from "@/components/ui/DotRing";
@@ -24,9 +25,9 @@ export function Footer() {
             <ul className="mt-4 space-y-2.5">
               {footerNav.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="text-sm text-paper/75 hover:text-paper">
+                  <Link href={link.href} className="-my-1.5 inline-block py-1.5 text-sm text-paper/75 hover:text-paper">
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -49,9 +50,13 @@ export function Footer() {
           </p>
           <nav aria-label="Legal" className="flex flex-wrap gap-x-6 gap-y-2">
             {legalNav.map((link) => (
-              <a key={link.href} href={link.href} className="text-xs text-paper/60 hover:text-paper">
+              <Link
+                key={link.href}
+                href={link.href}
+                className="-my-1.5 inline-block py-1.5 text-xs text-paper/60 hover:text-paper"
+              >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
         </div>
